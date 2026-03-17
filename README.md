@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Setup
+
+1. **Environment:** Copy env template and set your Supabase credentials.
+   ```bash
+   cp .env.example .env.local
+   ```
+   Edit `.env.local`: set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from [Supabase Dashboard](https://supabase.com/dashboard) → Project Settings → API.
+
+2. **Database:** Run migrations in Supabase (Dashboard → SQL Editor) in order:
+   - `supabase/migrations/20250317100000_create_grid_views.sql`
+   - `supabase/migrations/20250317100001_create_invoices.sql`
+   - `supabase/migrations/20250317100002_create_orders.sql`
+   Or with Supabase CLI: `supabase db push`.
+
+3. **Seed (optional):** `node scripts/seed.js` to fill invoices and orders with sample data.
+
 ## Getting Started
 
 First, run the development server:

@@ -1,6 +1,18 @@
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+type Props = { searchParams: Promise<{ [key: string]: string | string[] | undefined }> };
+
+export default async function Home({ searchParams }: Props) {
+  const params = await searchParams;
+  const errorCode = typeof params?.error_code === "string" ? params.error_code : null;
+  if (errorCode) {
+    const q = new URLSearchParams();
+    q.set("error_code", errorCode);
+    if (typeof params?.error_description === "string") q.set("error_description", params.error_description);
+    redirect(`/auth/auth-code-error?${q.toString()}`);
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
